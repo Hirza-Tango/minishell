@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:04:50 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/09 18:16:41 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/10 17:38:28 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,16 @@
 #  include <pwd.h>
 #  define PS1 getpwuid
 # endif
+
+# define SHELL_NAME "minishell"
+
+int		mini_echo(char *argv[]);
+void	mini_cd(char *argv[]);
+void	mini_pwd(void);
+void	mini_env(char *argv[]);
+void	mini_setenv(char *argv[]);
+void	mini_unsetenv(char	*argv[]);
+
+void	ft_puterr(const char *command, const char *target, const char *reason);
 
 #endif
