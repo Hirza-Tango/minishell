@@ -6,13 +6,13 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 17:31:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/10 17:40:37 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/11 13:51:20 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	mini_unsetenv(char *argv[])
+void	mini_unsetenv(char *argv[], char *env[])
 {
-	ft_unsetenv(argv[1]);
+	ft_unsetenv(argv[1], env);
 }

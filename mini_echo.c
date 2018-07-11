@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 14:29:55 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/10 17:23:13 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/11 14:00:03 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int		mini_echo(char *argv[])
 	{
 		while (**argv)
 		{
-			if (**argv != '\'' && **argv != '\"')
 				ft_putchar(**argv);
 			*argv += 1;
 		}

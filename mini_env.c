@@ -6,38 +6,41 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 16:29:30 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/10 17:39:34 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/11 15:10:05 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	mini_env(char *argv[])
+void	mini_env(char *argv[], char *env[])
 {
-	char		*name;
-	char		*value;
-	char		*pos;
+	//char		*name;
+	//char		*value;
+	//char		*pos;
 	char		**dup;
-	extern char	**environ;
 
 	argv++;
 	//TODO: Handle -i
 	//TODO: Handle quoting
-	while ((pos = ft_strchr(*argv, '=')))
+	/*while ((pos = ft_strchr(*argv, '=')))
 	{
+		ft_putendl("DEBUG: Equals");
 		name = ft_strndup(*argv, pos - *argv);
 		value = ft_strdup(pos + 1);
-		ft_setenv(name, value, 1);
+		ft_setenv(name, value, 1, env);
+		ft_putendl("Env was set");
 		free(name);
 		free(value);
 		argv++;
-	}
-	if (*argv)
-		mini_launch(argv);
-	else
+	}*/
+	ft_putendl(ft_itoa_base((long long int)env, 16));
+	if (!*argv || !**argv)
 	{
-		dup = environ;
+		ft_putendl("DEBUG: No args");
+		dup = env;
 		while (*dup)
 			ft_putendl(*dup++);
 	}
+	else
+		ft_putendl("DEBUG: Args"); //mini_launch(argv);
 }

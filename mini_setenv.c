@@ -6,25 +6,18 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 17:21:15 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/10 17:40:25 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/11 15:27:31 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	mini_setenv(char *argv[])
+int		mini_setenv(char *argv[], char *env[])
 {
-	char	*var;
-
-	argv++;
-	if (!*argv)
+	if (!argv[1])
 	{
-		mini_env(argv);
-		return ;
+		mini_env(argv, env);
+		return (0);
 	}
-	var = *argv++;
-	if (*argv)
-		ft_setenv(var, *argv, 1);//TODO: Maybe null check is handled?
-	else
-		ft_setenv(var, "", 1);
+	return (ft_setenv(argv[1], argv[2], 1, env));
 }

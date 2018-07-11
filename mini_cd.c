@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 14:54:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/10 17:23:38 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/11 13:46:14 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,20 @@ static int	is_dir(const char *path)
 
 //	TODO: handle quoting
 //	TODO: figure out why chdir isn't working
-void		mini_cd(char *argv[])
+void		mini_cd(char *argv[], char *env[])
 {
 	const char	*command = SHELL_NAME ": cd";
 
 	if (!argv[1])
 	{
-		if ((chdir(ft_getenv("HOME"))))
+		if ((chdir(ft_getenv("HOME", env))))
 			ft_puterr(command, "", "HOME not set");
 	}
 	else if (ft_strlen(argv[1]) > MAXNAMLEN)
 		ft_puterr(command, argv[1], "File name too long");
 	else if (ft_strequ(argv[1], "-"))
 	{
-		if (chdir(ft_getenv("OLDPWD")))
+		if (chdir(ft_getenv("OLDPWD", env)))
 			ft_puterr(command, "", "OLDPWD not set");
 	}
 	else if (chdir(argv[1]))
