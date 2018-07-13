@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:04:50 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/11 14:53:39 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/13 15:30:02 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@
 # define SHELL_NAME "minishell"
 
 int		mini_echo(char *argv[]);
-void	mini_cd(char *argv[], char *env[]);
-void	mini_pwd(void);
-void	mini_env(char *argv[], char *env[]);
+int		mini_cd(char *argv[], char *env[]);
+int		mini_pwd(void);
+int		mini_env(char *argv[], char *env[]);
 int		mini_setenv(char *argv[], char *env[]);
-void	mini_unsetenv(char *argv[], char *env[]);
+int		mini_unsetenv(char *argv[], char *env[]);
+int		mini_launch(char *argv[], char *env[]);
 
-void	ft_puterr(const char *command, const char *target, const char *reason);
+int		ft_puterr(const char *command, const char *target, const char *reason,
+	int code);
 
 #endif

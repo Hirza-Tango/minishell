@@ -6,17 +6,19 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 16:17:53 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/10 17:20:10 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/13 15:29:48 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	mini_pwd(void)
+int		mini_pwd(void)
 {
 	char	*wd;
 
-	wd = getcwd(NULL, 0);
+	if (!(wd = getcwd(NULL, 0)))
+		return (1);
 	ft_putendl(wd);
 	free(wd);
+	return (0);
 }
