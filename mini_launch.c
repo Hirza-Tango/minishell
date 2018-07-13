@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 12:46:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/13 15:59:28 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/13 16:27:49 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,40 @@ static void	ft_tabfree(char **tab)
 	tab = NULL;
 }
 
-int		mini_launch(char *argv[], char *env[])
+static char	*exec_location(char *path, char **env)
 {
-	char	**path;
+	char	**path_env;
 	char	**dup;
 	char	*exec;
-	pid_t	pid;
-	int		status;
 
-	status = 0;
-	path = ft_strsplit(ft_getenv("PATH", env), ':');
-	dup = path;
+	if (!access(path, F_OK))
+		return (ft_strdup(path));
+	path_env = ft_strsplit(ft_getenv("PATH", env), ':');
+	dup = path_env;
 	while (*dup)
 	{
-		exec = ft_strnew(ft_strlen(*dup) + ft_strlen(argv[0]) + 2);
-		exec = ft_strcat(ft_strcat(ft_strcat(exec, *dup), "/"), argv[0]);
-		if (!access(exec, X_OK))
+		exec = ft_strnew(ft_strlen(*dup) + ft_strlen(path) + 2);
+		exec = ft_strcat(ft_strcat(ft_strcat(exec, *dup), "/"), path);
+		if (!access(exec, F_OK))
 			break ;
 		free(exec);
 		exec = NULL;
 		dup++;
 	}
-	ft_tabfree(path);
+	ft_tabfree(path_env);
+	return (exec);
+}
+
+int			mini_launch(char *argv[], char *env[])
+{
+	char	*exec;
+	pid_t	pid;
+	int		status;
+
+	status = 0;
+	exec = exec_location(argv[0], env);
 	if (!exec)
-	{
 		return (ft_puterr(SHELL_NAME, argv[0], "command not found", 1));
-	}
 	if ((pid = fork()))
 	{
 		wait4(pid, &status, 0, NULL);
@@ -57,8 +65,5 @@ int		mini_launch(char *argv[], char *env[])
 		return (status);
 	}
 	else
-	{
-		execve(exec, argv, env);
-		exit (-1);
-	}
+		return (execve(exec, argv, env));
 }

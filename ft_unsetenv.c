@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_unsetenv.c                                    :+:      :+:    :+:   */
+/*   ft_unsetenv.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/10 17:31:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/13 17:22:37 by dslogrov         ###   ########.fr       */
+/*   Created: 2018/07/13 17:20:51 by dslogrov          #+#    #+#             */
+/*   Updated: 2018/07/13 18:10:04 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int		mini_unsetenv(char *argv[], char *env[])
+int	ft_unsetenv(const char *name, char **env)
 {
-	return (ft_unsetenv(argv[1], env));
+	(void)(name && env);
+	return (0);
 }

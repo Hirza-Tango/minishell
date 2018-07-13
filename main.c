@@ -6,31 +6,11 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/13 15:54:35 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/13 18:09:18 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-char	**ft_tabdup(char **tab)
-{
-	char	**dup;
-	char	**ret;
-	char	**retdup;
-	size_t	len;
-
-	dup = tab;
-	len = 0;
-	while (*(dup++))
-		len++;
-	ret = malloc(sizeof(char *) * (len + 1));
-	retdup = ret;
-	dup = tab;
-	while (*dup)
-		*retdup++ = ft_strdup(*dup++);
-	*retdup = NULL;
-	return (ret);
-}
 
 int		ft_puterr(const char *command, const char *target, const char *reason,
 	int code)
@@ -43,7 +23,7 @@ int		ft_puterr(const char *command, const char *target, const char *reason,
 		ft_putstr_fd(": ", 2);
 	}
 	ft_putendl_fd(reason, 2);
-	return(code);
+	return (code);
 }
 
 void	ft_tabfree(char **tab)
@@ -74,13 +54,13 @@ void	call_handler(char *argv[], char *env[], int *status)
 		*status = mini_pwd();
 	else if (ft_strequ(argv[0], "setenv"))
 		*status = mini_setenv(argv, env);
-	else if (ft_strequ(argv[0], "unsetenv"))
-		*status = mini_unsetenv(argv, env);
+	/*else if (ft_strequ(argv[0], "unsetenv"))
+		*status = mini_unsetenv(argv, env);*/
 	else if (ft_strequ(argv[0], "env"))
 		*status = mini_env(argv, env);
 	else if (ft_strequ(argv[0], "exit") || ft_strequ(argv[0], "q"))
 	{
-		//ft_tabfree(env);
+		ft_tabfree(env);
 		exit (argv[1] ? ft_atoi(argv[1]) : 0);
 	}
 	else if (ft_strequ(argv[0], "$?"))
@@ -102,18 +82,20 @@ int		main(int argc, char *argv[], char *envv[])
 	env = ft_tabdup(envv);
 	(void)(argv && argc);
 	status = 0;
+	signal(SIGINT, SIG_IGN);
 	while (1)
 	{
 		ft_putstr("$> ");
 		if (get_next_line(0, &input) <= 0)
 		{
+			ft_tabfree(env);
 			ft_putendl("exit");
 			exit(0);
 		}
 		if (!(args = ft_strsplit(input, ' ')))
 			continue;
 		//TODO: split on all whitespace
-		call_handler(args, envv, &status);
+		call_handler(args, env, &status);
 		ft_tabfree(args);
 	}
 }

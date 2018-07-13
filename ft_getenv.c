@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_unsetenv.c                                    :+:      :+:    :+:   */
+/*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/10 17:31:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/13 17:22:37 by dslogrov         ###   ########.fr       */
+/*   Created: 2018/07/11 10:44:10 by dslogrov          #+#    #+#             */
+/*   Updated: 2018/07/13 18:12:15 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int		mini_unsetenv(char *argv[], char *env[])
+const char	*ft_getenv(const char *name, char **env)
 {
-	return (ft_unsetenv(argv[1], env));
+	char			**dup;
+
+	if (!name || !*name || ft_strchr(name, '='))
+		return (NULL);
+	dup = env;
+	while (*dup)
+	{
+		if (!ft_strncmp(*dup, name, ft_strlen(name)) && 
+			(*dup)[ft_strlen(name)] == '=')
+			return (*dup + ft_strlen(name) + 1);
+		dup++;
+	}
+	return (NULL);
 }
