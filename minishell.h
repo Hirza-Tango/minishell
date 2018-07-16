@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:04:50 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/13 17:22:26 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/16 14:18:39 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ int			mini_launch(char *argv[], char *env[]);
 int			ft_puterr(const char *command, const char *target,
 	const char *reason,	int code);
 char		**ft_tabdup(char **tab);
+void		ft_tabfree(char **tab);
 const char	*ft_getenv(const char *name, char **env);
-int			ft_setenv(const char *name, const char *value, char **env);
-int			ft_unsetenv(const char *name, char **env);
+int			ft_setenv(const char *name, const char *value, char ***env);
+int			ft_unsetenv(const char *name, char ***env);
 
 #endif

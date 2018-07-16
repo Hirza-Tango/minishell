@@ -6,23 +6,11 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 12:46:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/13 16:27:49 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/16 11:57:46 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-static void	ft_tabfree(char **tab)
-{
-	char	**dup;
-
-	if (!tab)
-		return ;
-	dup = tab;
-	while (*dup)
-		free(*dup++);
-	tab = NULL;
-}
 
 static char	*exec_location(char *path, char **env)
 {

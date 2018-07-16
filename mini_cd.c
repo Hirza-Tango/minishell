@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 14:54:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/13 17:37:50 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/16 14:29:40 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,12 @@ int			mini_cd(char *argv[], char *env[])
 		//		EIO:	IO Error
 		//		ELOOP:	Symlink loop
 	}
-	ft_putendl("Setting oldpwd");
-	ft_setenv("OLDPWD", pwd, env);
+	/*
+	ft_setenv("OLDPWD", pwd, &env);
 	free(pwd);
 	pwd = getcwd(NULL, 0);
-	ft_setenv("PWD", pwd, env);
+	ft_setenv("PWD", pwd, &env);
 	free(pwd);
+	*/
 	return (0);
 }

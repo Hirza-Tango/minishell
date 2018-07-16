@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 17:31:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/13 17:22:37 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/16 14:18:52 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int		mini_unsetenv(char *argv[], char *env[])
 {
-	return (ft_unsetenv(argv[1], env));
+	return (ft_unsetenv(argv[1], &env));
 }

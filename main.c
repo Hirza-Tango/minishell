@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/13 18:09:18 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/16 14:34:35 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,11 @@ int		ft_puterr(const char *command, const char *target, const char *reason,
 	return (code);
 }
 
-void	ft_tabfree(char **tab)
-{
-	char	**dup;
 
-	if (!tab)
-		return ;
-	dup = tab;
-	while (*dup)
-		free(*dup++);
-	tab = NULL;
-}
 
 void	terminate(int sig)
 {
-	if (sig == 15)
+	if (sig == SIGINT)
 		exit(0);
 }
 
@@ -52,9 +42,9 @@ void	call_handler(char *argv[], char *env[], int *status)
 		*status = mini_cd(argv, env);
 	else if (ft_strequ(argv[0], "pwd"))
 		*status = mini_pwd();
-	else if (ft_strequ(argv[0], "setenv"))
+	/*else if (ft_strequ(argv[0], "setenv"))
 		*status = mini_setenv(argv, env);
-	/*else if (ft_strequ(argv[0], "unsetenv"))
+	else if (ft_strequ(argv[0], "unsetenv"))
 		*status = mini_unsetenv(argv, env);*/
 	else if (ft_strequ(argv[0], "env"))
 		*status = mini_env(argv, env);
@@ -82,7 +72,7 @@ int		main(int argc, char *argv[], char *envv[])
 	env = ft_tabdup(envv);
 	(void)(argv && argc);
 	status = 0;
-	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, terminate);
 	while (1)
 	{
 		ft_putstr("$> ");
@@ -92,6 +82,7 @@ int		main(int argc, char *argv[], char *envv[])
 			ft_putendl("exit");
 			exit(0);
 		}
+		if (ft_strlen(input))
 		if (!(args = ft_strsplit(input, ' ')))
 			continue;
 		//TODO: split on all whitespace
