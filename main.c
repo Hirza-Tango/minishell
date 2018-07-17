@@ -6,11 +6,31 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/17 13:33:04 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/17 16:37:53 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+static int	set_path(char *env[])
+{
+	const int	fd = open("/etc/paths", O_RDONLY);
+	char		*input;
+	char		*path;
+	char		*temp;
+
+	path = ft_strdup("");
+	while (get_next_line(fd, &input) > 0)
+	{
+		temp = ft_strnew(ft_strlen(path) + ft_strlen(input) + 2);
+		temp = ft_strcat(ft_strcat(ft_strcpy(temp, path), ":"), input);
+		free(path);
+		path = temp;
+	}
+	ft_setenv("PATH", path, &env);
+	close(fd);
+	return (0);
+}
 
 static void	prompt(char *env[])
 {
@@ -18,13 +38,13 @@ static void	prompt(char *env[])
 
 	//ft_putstr("\e[32m");
 	ft_putstr(ft_getenv("USER", env));
-	//ft_putstr("\e[31m");
+	ft_putstr("\e[31m");
 	ft_putstr("@");
-	//ft_putstr("\e[34m");
+	ft_putstr("\e[34m");
 	ft_putstr(wd);
-	//ft_putstr("\e[31m");
+	ft_putstr("\e[31m");
 	ft_putstr("#");
-	//ft_putstr("\e[0m");
+	ft_putstr("\e[0m");
 	ft_putstr(" ");
 }
 
@@ -59,7 +79,7 @@ void		call_handler(char *argv[], char *env[], int *status)
 	else if (ft_strequ(argv[0], "exit") || ft_strequ(argv[0], "q"))
 	{
 		ft_tabfree(env);
-		exit(argv[1] ? ft_atoi(argv[1]) : 0);
+		exit(argv[1] ? ft_atoi(argv[1]) : *status);
 	}
 	else if (ft_strequ(argv[0], "$?"))
 	{
@@ -67,7 +87,7 @@ void		call_handler(char *argv[], char *env[], int *status)
 		ft_putchar('\n');
 	}
 	else
-		mini_launch(argv, env);
+		*status = mini_launch(argv, env);
 }
 
 int			main(int argc, char *argv[], char *envv[])
@@ -75,14 +95,16 @@ int			main(int argc, char *argv[], char *envv[])
 	char		*input;
 	int			status;
 	char		**args;
-	static char	**env = NULL;
+	char		**env;
 
-	if (!env)
-		env = ft_tabdup(envv);
+	env = ft_tabdup(envv);
+	if (!getenv("PATH"))
+		set_path(env);
 	(void)(argv && argc);
 	status = 0;
 	signal(SIGINT, SIG_IGN);
 	//ft_setenv("SHELL", SHELL_NAME, env);
+	//ft_setenv("SHLVL", ft_itoa(ft_atoi(ft_getenv(SHLVL) + 1), env);
 	while (1)
 	{
 		prompt(env);

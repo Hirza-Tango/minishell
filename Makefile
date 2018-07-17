@@ -20,11 +20,13 @@ build/%.o: %.c
 all: $(NAME);
 
 clean:
+	@make -C libft clean
 	@rm -rf build/
  
 fclean: clean
+	@make -C libft fclean
 	@rm -rf $(NAME)
 
 re: fclean all
 
-.PHONY: clean fclean re all
+.PHONY: clean fclean re all libft/libft.a
