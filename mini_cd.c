@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 14:54:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/16 14:29:40 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/17 13:41:18 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,14 @@ static int	is_dir(const char *path)
 	return (0);
 }
 
-//	TODO: handle quoting
+/*
+**	TODO: Cases:
+**		System:
+**			EFAULT:	Path is outside process adress space
+**			EIO:	IO Error
+**			ELOOP:	Symlink loop
+*/
+
 int			mini_cd(char *argv[], char *env[])
 {
 	const char	*com = SHELL_NAME ": cd";
@@ -31,7 +38,7 @@ int			mini_cd(char *argv[], char *env[])
 	pwd = getcwd(NULL, 0);
 	if (!argv[1])
 	{
-		if ((chdir(ft_getenv("HOME", env))))
+		if (chdir(ft_getenv("HOME", env)))
 			return (ft_puterr(com, "", "HOME not set", 1));
 	}
 	else if (ft_strlen(argv[1]) > MAXNAMLEN)
@@ -50,11 +57,6 @@ int			mini_cd(char *argv[], char *env[])
 		if (!is_dir(argv[1]))
 			return (ft_puterr(com, argv[1], "Not a directory", 1));
 		return (ft_puterr(com, argv[1], "System error", 1));
-		//TODO: Cases:
-		// System:
-		//		EFAULT:	Path is outside process adress space
-		//		EIO:	IO Error
-		//		ELOOP:	Symlink loop
 	}
 	/*
 	ft_setenv("OLDPWD", pwd, &env);

@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 17:20:51 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/16 14:19:48 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/17 09:45:07 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 int	ft_unsetenv(const char *name, char ***env)
 {
-	char 	**ret;
-	char 	**dup;
+	char	**ret;
+	char	**dup;
 	char	**retdup;
-	char	*new;
 	size_t	size;
 
 	dup = *env;
@@ -36,7 +35,7 @@ int	ft_unsetenv(const char *name, char ***env)
 	{
 		if (ft_strnequ(name, *dup, ft_strlen(name)) &&
 			(*dup)[ft_strlen(name)] == '=')
-				*(retdup++) = *dup;
+			*(retdup++) = *dup;
 		else
 			free(*dup);
 		dup++;

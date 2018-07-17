@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 16:47:58 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/16 14:13:15 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/17 09:52:28 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,15 @@ static int	env_replace(const char *name, const char *value, char **env)
 
 static int	env_add(const char *name, const char *value, char ***env)
 {
-	char 	**ret;
-	char 	**dup;
+	char	**ret;
+	char	**dup;
 	char	**retdup;
-	char	*new;
 	size_t	size;
 
 	dup = *env;
 	size = 0;
 	while (*(dup++))
 		size++;
-	ft_putnbr(size);
 	ret = (char **)malloc(sizeof(char *) * (size + 2));
 	dup = *env;
 	retdup = ret;
@@ -49,7 +47,7 @@ static int	env_add(const char *name, const char *value, char ***env)
 		*(retdup++) = *dup;
 		dup++;
 	}
-	free(*env);
+	ft_tabfree(*env);
 	*retdup = ft_strnew(ft_strlen(name) + ft_strlen(value) + 2);
 	*retdup = ft_strcat(ft_strcat(ft_strcpy(*retdup, name), "="), value);
 	*(++retdup) = NULL;

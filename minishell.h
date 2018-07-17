@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:04:50 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/16 14:18:39 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/17 13:28:51 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,6 @@
 # include <sys/wait.h>
 # include <signal.h>
 
-# ifdef CUSTOM_PROMPT
-#  include <pwd.h>
-#  define PS1 getpwuid
-# endif
-
 # define SHELL_NAME "minishell"
 
 int			mini_echo(char *argv[]);
@@ -40,7 +35,7 @@ int			mini_unsetenv(char *argv[], char *env[]);
 int			mini_launch(char *argv[], char *env[]);
 
 int			ft_puterr(const char *command, const char *target,
-	const char *reason,	int code);
+	const char *reason, int code);
 char		**ft_tabdup(char **tab);
 void		ft_tabfree(char **tab);
 const char	*ft_getenv(const char *name, char **env);

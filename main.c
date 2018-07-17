@@ -6,14 +6,30 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/16 14:34:35 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/17 13:33:04 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int		ft_puterr(const char *command, const char *target, const char *reason,
-	int code)
+static void	prompt(char *env[])
+{
+	const char *wd = getcwd(NULL, 0);
+
+	//ft_putstr("\e[32m");
+	ft_putstr(ft_getenv("USER", env));
+	//ft_putstr("\e[31m");
+	ft_putstr("@");
+	//ft_putstr("\e[34m");
+	ft_putstr(wd);
+	//ft_putstr("\e[31m");
+	ft_putstr("#");
+	//ft_putstr("\e[0m");
+	ft_putstr(" ");
+}
+
+int			ft_puterr(const char *command, const char *target,
+	const char *reason, int code)
 {
 	ft_putstr_fd(command, 2);
 	ft_putstr_fd(": ", 2);
@@ -26,15 +42,7 @@ int		ft_puterr(const char *command, const char *target, const char *reason,
 	return (code);
 }
 
-
-
-void	terminate(int sig)
-{
-	if (sig == SIGINT)
-		exit(0);
-}
-
-void	call_handler(char *argv[], char *env[], int *status)
+void		call_handler(char *argv[], char *env[], int *status)
 {
 	if (ft_strequ(argv[0], "echo"))
 		*status = mini_echo(argv);
@@ -42,16 +50,16 @@ void	call_handler(char *argv[], char *env[], int *status)
 		*status = mini_cd(argv, env);
 	else if (ft_strequ(argv[0], "pwd"))
 		*status = mini_pwd();
-	/*else if (ft_strequ(argv[0], "setenv"))
+	else if (ft_strequ(argv[0], "setenv"))
 		*status = mini_setenv(argv, env);
 	else if (ft_strequ(argv[0], "unsetenv"))
-		*status = mini_unsetenv(argv, env);*/
+		*status = mini_unsetenv(argv, env);
 	else if (ft_strequ(argv[0], "env"))
 		*status = mini_env(argv, env);
 	else if (ft_strequ(argv[0], "exit") || ft_strequ(argv[0], "q"))
 	{
 		ft_tabfree(env);
-		exit (argv[1] ? ft_atoi(argv[1]) : 0);
+		exit(argv[1] ? ft_atoi(argv[1]) : 0);
 	}
 	else if (ft_strequ(argv[0], "$?"))
 	{
@@ -62,30 +70,30 @@ void	call_handler(char *argv[], char *env[], int *status)
 		mini_launch(argv, env);
 }
 
-int		main(int argc, char *argv[], char *envv[])
+int			main(int argc, char *argv[], char *envv[])
 {
-	char	*input;
-	int		status;
-	char	**args;
-	char	**env;
+	char		*input;
+	int			status;
+	char		**args;
+	static char	**env = NULL;
 
-	env = ft_tabdup(envv);
+	if (!env)
+		env = ft_tabdup(envv);
 	(void)(argv && argc);
 	status = 0;
-	signal(SIGINT, terminate);
+	signal(SIGINT, SIG_IGN);
+	//ft_setenv("SHELL", SHELL_NAME, env);
 	while (1)
 	{
-		ft_putstr("$> ");
+		prompt(env);
 		if (get_next_line(0, &input) <= 0)
 		{
 			ft_tabfree(env);
 			ft_putendl("exit");
-			exit(0);
+			exit(status);
 		}
-		if (ft_strlen(input))
-		if (!(args = ft_strsplit(input, ' ')))
+		if (!(args = ft_strqotsplit(input, ' ')))
 			continue;
-		//TODO: split on all whitespace
 		call_handler(args, env, &status);
 		ft_tabfree(args);
 	}
