@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 16:47:58 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/17 09:52:28 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/17 17:50:40 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,10 @@ static int	env_add(const char *name, const char *value, char ***env)
 	dup = *env;
 	retdup = ret;
 	while (*dup)
-	{
-		*(retdup++) = *dup;
-		dup++;
-	}
-	ft_tabfree(*env);
+		*retdup++ = *dup++;
+	free(*env);
 	*retdup = ft_strnew(ft_strlen(name) + ft_strlen(value) + 2);
-	*retdup = ft_strcat(ft_strcat(ft_strcpy(*retdup, name), "="), value);
+	*retdup = ft_strcat(ft_strcat(ft_strcat(*retdup, name), "="), value);
 	*(++retdup) = NULL;
 	*env = ret;
 	return (0);

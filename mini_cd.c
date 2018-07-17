@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 14:54:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/17 13:41:18 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/17 17:36:10 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	is_dir(const char *path)
 **			ELOOP:	Symlink loop
 */
 
-int			mini_cd(char *argv[], char *env[])
+int			mini_cd(char *argv[], char **env)
 {
 	const char	*com = SHELL_NAME ": cd";
 	char		*pwd;
@@ -58,12 +58,7 @@ int			mini_cd(char *argv[], char *env[])
 			return (ft_puterr(com, argv[1], "Not a directory", 1));
 		return (ft_puterr(com, argv[1], "System error", 1));
 	}
-	/*
-	ft_setenv("OLDPWD", pwd, &env);
-	free(pwd);
-	pwd = getcwd(NULL, 0);
-	ft_setenv("PWD", pwd, &env);
-	free(pwd);
-	*/
+	//ft_setenv("OLDPWD", pwd, &env);
+	//ft_setenv("PWD", getcwd(NULL, 0), &env);
 	return (0);
 }

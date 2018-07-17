@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 17:20:51 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/17 09:45:07 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/17 17:44:21 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	ft_unsetenv(const char *name, char ***env)
 	size = 0;
 	while (*dup)
 	{
-		if (ft_strnequ(name, *dup, ft_strlen(name)) &&
-			(*dup)[ft_strlen(name)] == '=')
+		if (ft_strncmp(name, *dup, ft_strlen(name)) &&
+			(*dup)[ft_strlen(name)] != '=')
 			size++;
 		dup++;
 	}
@@ -33,8 +33,8 @@ int	ft_unsetenv(const char *name, char ***env)
 	retdup = ret;
 	while (*dup)
 	{
-		if (ft_strnequ(name, *dup, ft_strlen(name)) &&
-			(*dup)[ft_strlen(name)] == '=')
+		if (ft_strncmp(name, *dup, ft_strlen(name)) &&
+			(*dup)[ft_strlen(name)] != '=')
 			*(retdup++) = *dup;
 		else
 			free(*dup);

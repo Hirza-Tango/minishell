@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/17 16:37:53 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/17 17:59:08 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,18 @@ static int	set_path(char *env[])
 	char		*path;
 	char		*temp;
 
-	path = ft_strdup("");
+	path = NULL;
 	while (get_next_line(fd, &input) > 0)
 	{
-		temp = ft_strnew(ft_strlen(path) + ft_strlen(input) + 2);
-		temp = ft_strcat(ft_strcat(ft_strcpy(temp, path), ":"), input);
-		free(path);
-		path = temp;
+		if (path)
+		{
+			temp = ft_strnew(ft_strlen(path) + ft_strlen(input) + 2);
+			temp = ft_strcat(ft_strcat(ft_strcpy(temp, path), ":"), input);
+			free(path);
+			path = temp;
+		}
+		else
+			path = input;
 	}
 	ft_setenv("PATH", path, &env);
 	close(fd);
@@ -36,11 +41,11 @@ static void	prompt(char *env[])
 {
 	const char *wd = getcwd(NULL, 0);
 
-	//ft_putstr("\e[32m");
+	ft_putstr("\e[32m");
 	ft_putstr(ft_getenv("USER", env));
 	ft_putstr("\e[31m");
 	ft_putstr("@");
-	ft_putstr("\e[34m");
+	ft_putstr("\e[32m");
 	ft_putstr(wd);
 	ft_putstr("\e[31m");
 	ft_putstr("#");
@@ -103,8 +108,8 @@ int			main(int argc, char *argv[], char *envv[])
 	(void)(argv && argc);
 	status = 0;
 	signal(SIGINT, SIG_IGN);
-	//ft_setenv("SHELL", SHELL_NAME, env);
-	//ft_setenv("SHLVL", ft_itoa(ft_atoi(ft_getenv(SHLVL) + 1), env);
+	ft_setenv("SHELL", SHELL_NAME, &env);
+	ft_setenv("SHLVL", ft_itoa(ft_atoi(ft_getenv("SHLVL", env)) + 1), &env);
 	while (1)
 	{
 		prompt(env);
