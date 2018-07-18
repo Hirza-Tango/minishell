@@ -6,11 +6,20 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 16:47:58 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/17 17:50:40 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/18 11:10:21 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+static char	*getnamestr(const char *name, const char *value)
+{
+	char	*ret;
+
+	ret = ft_strnew(ft_strlen(name) + ft_strlen(value) + 2);
+	ret = ft_strcat(ft_strcat(ft_strcat(ret, name), "="), value);
+	return (ret);
+}
 
 static int	env_replace(const char *name, const char *value, char **env)
 {
@@ -20,8 +29,7 @@ static int	env_replace(const char *name, const char *value, char **env)
 			(*env)[ft_strlen(name)] == '=')
 		{
 			free(*env);
-			*env = ft_strnew(ft_strlen(name) + ft_strlen(value) + 2);
-			*env = ft_strcat(ft_strcat(ft_strcpy(*env, name), "="), value);
+			*env = getnamestr(name, value);
 		}
 		env++;
 	}
@@ -45,9 +53,8 @@ static int	env_add(const char *name, const char *value, char ***env)
 	while (*dup)
 		*retdup++ = *dup++;
 	free(*env);
-	*retdup = ft_strnew(ft_strlen(name) + ft_strlen(value) + 2);
-	*retdup = ft_strcat(ft_strcat(ft_strcat(*retdup, name), "="), value);
-	*(++retdup) = NULL;
+	*retdup++ = getnamestr(name, value);
+	*retdup = NULL;
 	*env = ret;
 	return (0);
 }
