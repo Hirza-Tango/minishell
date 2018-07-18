@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/17 17:59:08 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/18 11:34:08 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ static int	set_path(char *env[])
 	{
 		if (path)
 		{
-			temp = ft_strnew(ft_strlen(path) + ft_strlen(input) + 2);
-			temp = ft_strcat(ft_strcat(ft_strcpy(temp, path), ":"), input);
+			temp = ft_strmjoin(path, ":", input);
 			free(path);
 			path = temp;
 		}
@@ -47,6 +46,7 @@ static void	prompt(char *env[])
 	ft_putstr("@");
 	ft_putstr("\e[32m");
 	ft_putstr(wd);
+	free((char *)wd);
 	ft_putstr("\e[31m");
 	ft_putstr("#");
 	ft_putstr("\e[0m");
