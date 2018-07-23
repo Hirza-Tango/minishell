@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tabdup.c                                        :+:      :+:    :+:   */
+/*   homestring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/13 17:04:51 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/13 17:59:09 by dslogrov         ###   ########.fr       */
+/*   Created: 2018/07/23 15:51:34 by dslogrov          #+#    #+#             */
+/*   Updated: 2018/07/23 16:19:41 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	**ft_tabdup(char **tab)
+char	*abs_to_rel(char *old, char **env, int reverse)
 {
-	char	**dup;
-	char	**ret;
-	char	**retdup;
-	size_t	len;
+	const char	*find = reverse ? "~" : ft_getenv("HOME", env);
+	const char	*replace = (!reverse) ? "~" : ft_getenv("HOME", env);
 
-	dup = tab;
-	len = 0;
-	while (*(dup++))
-		len++;
-	ret = malloc(sizeof(char *) * (len + 1));
-	retdup = ret;
-	dup = tab;
-	while (*dup)
-		*(retdup++) = ft_strdup(*(dup++));
-	*retdup = NULL;
-	return (ret);
+	if (!ft_strncmp(old, find, ft_strlen(find)))
+		return (ft_strjoin(replace, old + ft_strlen(find)));
+	return (ft_strdup(old));
 }

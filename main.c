@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/23 10:51:59 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/23 16:23:47 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,19 @@ static int	set_path(char *env[])
 	return (0);
 }
 
-static void	prompt(char *env[])
+static void	prompt(char **env)
 {
 	const char *wd = getcwd(NULL, 0);
+	const char *path = abs_to_rel((char *)wd, env, 0);
 
 	ft_putstr("\e[32m");
 	ft_putstr(ft_getenv("USER", env));
 	ft_putstr("\e[31m");
 	ft_putstr("@");
 	ft_putstr("\e[32m");
-	ft_putstr(wd);
+	ft_putstr(path);
 	free((char *)wd);
+	free((char *)path);
 	ft_putstr("\e[31m");
 	ft_putstr("#");
 	ft_putstr("\e[0m");
@@ -67,7 +69,7 @@ int			ft_puterr(const char *command, const char *target,
 	return (code);
 }
 
-void		call_handler(char *argv[], char *env[], int *status)
+void		call_handler(char *argv[], char ***env, int *status)
 {
 	if (ft_strequ(argv[0], "echo"))
 		*status = mini_echo(argv);
@@ -83,7 +85,7 @@ void		call_handler(char *argv[], char *env[], int *status)
 		*status = mini_env(argv, env);
 	else if (ft_strequ(argv[0], "exit") || ft_strequ(argv[0], "q"))
 	{
-		ft_tabfree(env);
+		ft_tabfree(*env);
 		exit(argv[1] ? ft_atoi(argv[1]) : *status);
 	}
 	else if (ft_strequ(argv[0], "$?"))
@@ -92,7 +94,7 @@ void		call_handler(char *argv[], char *env[], int *status)
 		ft_putchar('\n');
 	}
 	else
-		*status = mini_launch(argv, env);
+		*status = mini_launch(argv, *env);
 }
 
 int			main(int argc, char *argv[], char *envv[])
@@ -121,7 +123,7 @@ int			main(int argc, char *argv[], char *envv[])
 		}
 		if (!(args = ft_strqotsplit(input, ' ')))
 			continue;
-		call_handler(args, env, &status);
+		call_handler(args, &env, &status);
 		ft_tabfree(args);
 	}
 }
