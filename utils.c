@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   homestring.c                                       :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/23 15:51:34 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/23 16:19:41 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/23 17:05:26 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,14 @@ char	*abs_to_rel(char *old, char **env, int reverse)
 	if (!ft_strncmp(old, find, ft_strlen(find)))
 		return (ft_strjoin(replace, old + ft_strlen(find)));
 	return (ft_strdup(old));
+}
+
+void	tilde_substitute(char **tab, char **env)
+{
+	while (*tab)
+	{
+		if (**tab == '~')
+			ft_swapnfree(tab, abs_to_rel(*tab, env, 1));
+		tab++;
+	}
 }

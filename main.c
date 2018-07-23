@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/23 16:23:47 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/23 17:04:40 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,14 @@ static int	set_path(char *env[])
 static void	prompt(char **env)
 {
 	const char *wd = getcwd(NULL, 0);
-	const char *path = abs_to_rel((char *)wd, env, 0);
 
 	ft_putstr("\e[32m");
 	ft_putstr(ft_getenv("USER", env));
 	ft_putstr("\e[31m");
 	ft_putstr("@");
 	ft_putstr("\e[32m");
-	ft_putstr(path);
+	ft_putstr(wd);
 	free((char *)wd);
-	free((char *)path);
 	ft_putstr("\e[31m");
 	ft_putstr("#");
 	ft_putstr("\e[0m");
@@ -104,6 +102,7 @@ int			main(int argc, char *argv[], char *envv[])
 	char		**args;
 	char		**env;
 
+	env = *
 	env = ft_tabdup(envv);
 	if (!getenv("PATH"))
 		set_path(env);
@@ -123,6 +122,7 @@ int			main(int argc, char *argv[], char *envv[])
 		}
 		if (!(args = ft_strqotsplit(input, ' ')))
 			continue;
+		tilde_substitute(args, env);
 		call_handler(args, &env, &status);
 		ft_tabfree(args);
 	}
