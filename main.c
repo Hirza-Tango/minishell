@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/18 11:34:08 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/23 10:51:59 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	set_path(char *env[])
 	{
 		if (path)
 		{
-			temp = ft_strmjoin(path, ":", input);
+			temp = ft_strmjoin(3, path, ":", input);
 			free(path);
 			path = temp;
 		}
