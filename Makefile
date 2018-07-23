@@ -1,13 +1,13 @@
 NAME=minishell
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror -I. -I libft -I get_next_line -Ofast
+CFLAGS=-Wall -Wextra -Werror -I. -I libft -Ofast
 CFILES=	ft_getenv.c		ft_setenv.c		ft_tabdup.c 	ft_tabfree.c	\
 		ft_unsetenv.c	mini_cd.c		mini_echo.c		mini_env.c		\
 		mini_launch.c	mini_pwd.c		mini_setenv.c	mini_unsetenv.c	\
 
 OBJ=$(CFILES:%.c=build/%.o)
 
-$(NAME): $(OBJ) get_next_line/get_next_line.c main.c libft/libft.a
+$(NAME): $(OBJ) main.c libft/libft.a
 	@gcc $(CFLAGS) -o $(NAME) $^
 
 libft/libft.a:
