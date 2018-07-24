@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/23 17:04:40 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/24 10:28:40 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int			main(int argc, char *argv[], char *envv[])
 	char		**args;
 	char		**env;
 
-	env = *
 	env = ft_tabdup(envv);
 	if (!getenv("PATH"))
 		set_path(env);
