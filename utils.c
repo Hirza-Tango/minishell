@@ -6,11 +6,35 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/23 15:51:34 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/31 17:08:31 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/31 17:35:00 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+int		default_path(char ***env)
+{
+	const int	fd = open("/etc/paths", O_RDONLY);
+	char		*input;
+	char		*path;
+	char		*temp;
+
+	path = NULL;
+	while (get_next_line(fd, &input) > 0)
+	{
+		if (path)
+		{
+			temp = ft_strmjoin(3, path, ":", input);
+			free(path);
+			path = temp;
+		}
+		else
+			path = input;
+	}
+	ft_setenv("PATH", path, env);
+	close(fd);
+	return (0);
+}
 
 char	*abs_to_rel(char *old, char **env, int reverse)
 {

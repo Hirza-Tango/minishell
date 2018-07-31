@@ -6,42 +6,30 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/31 16:31:17 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/31 17:49:50 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int	set_path(char ***env)
+static char	**init_env(char **env)
 {
-	const int	fd = open("/etc/paths", O_RDONLY);
-	char		*input;
-	char		*path;
-	char		*temp;
+	char **ret;
 
-	path = NULL;
-	while (get_next_line(fd, &input) > 0)
-	{
-		if (path)
-		{
-			temp = ft_strmjoin(3, path, ":", input);
-			free(path);
-			path = temp;
-		}
-		else
-			path = input;
-	}
-	ft_setenv("PATH", path, env);
-	close(fd);
-	return (0);
+	ret = ft_tabdup(env);
+	if (!ft_getenv("PATH", ret))
+		default_path(&ret);
+	ft_setenv("SHELL", ft_getenv("_", ret), &ret);
+	ft_setenv("SHLVL", ft_itoa(ft_atoi(ft_getenv("SHLVL", ret)) + 1), &ret);
+	return (ret);
 }
 
 static void	prompt(char **env)
 {
 	char	*wd;
-	wd = getcwd(NULL,0);
-	ft_swapnfree(&wd, abs_to_rel(wd, env, 0));
 
+	wd = getcwd(NULL, 0);
+	ft_swapnfree(&wd, abs_to_rel(wd, env, 0));
 	ft_putstr("\e[32m");
 	ft_putstr(ft_getenv("USER", env));
 	ft_putstr("\e[31m");
@@ -104,14 +92,10 @@ int			main(int argc, char *argv[], char *envv[])
 	char		**args;
 	char		**env;
 
-	env = ft_tabdup(envv);
-	if (!getenv("PATH"))
-		set_path(&env);
 	(void)(argv && argc);
+	env = init_env(envv);
 	status = 0;
 	signal(SIGINT, SIG_IGN);
-	ft_setenv("SHELL", SHELL_NAME, &env);
-	ft_setenv("SHLVL", ft_itoa(ft_atoi(ft_getenv("SHLVL", env)) + 1), &env);
 	while (1)
 	{
 		prompt(env);
