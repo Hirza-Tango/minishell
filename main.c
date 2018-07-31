@@ -6,13 +6,13 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/24 10:28:40 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/24 13:46:02 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int	set_path(char *env[])
+static int	set_path(char ***env)
 {
 	const int	fd = open("/etc/paths", O_RDONLY);
 	char		*input;
@@ -31,14 +31,16 @@ static int	set_path(char *env[])
 		else
 			path = input;
 	}
-	ft_setenv("PATH", path, &env);
+	ft_setenv("PATH", path, env);
 	close(fd);
 	return (0);
 }
 
 static void	prompt(char **env)
 {
-	const char *wd = getcwd(NULL, 0);
+	char	*wd;
+	wd = getcwd(NULL,0);
+	ft_swapnfree(&wd, abs_to_rel(wd, env, 0));
 
 	ft_putstr("\e[32m");
 	ft_putstr(ft_getenv("USER", env));
@@ -104,7 +106,7 @@ int			main(int argc, char *argv[], char *envv[])
 
 	env = ft_tabdup(envv);
 	if (!getenv("PATH"))
-		set_path(env);
+		set_path(&env);
 	(void)(argv && argc);
 	status = 0;
 	signal(SIGINT, SIG_IGN);
