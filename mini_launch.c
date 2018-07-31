@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 12:46:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/23 10:49:58 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/31 16:47:33 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static char	*exec_location(char *path, char **env)
 		return (ft_strdup(path));
 	path_env = ft_strsplit(ft_getenv("PATH", env), ':');
 	dup = path_env;
+	if (!dup)
+		return (NULL);
 	while (*dup)
 	{
 		exec = ft_strmjoin(3, *dup, "/", path);
@@ -54,5 +56,8 @@ int			mini_launch(char *argv[], char *env[])
 		return (status);
 	}
 	else
+	{
+		signal(SIGINT, SIG_DFL);
 		return (execve(exec, argv, env));
+	}
 }

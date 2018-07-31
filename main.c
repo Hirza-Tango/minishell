@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/24 13:46:02 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/31 16:31:17 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,9 @@ int			main(int argc, char *argv[], char *envv[])
 			ft_putendl("exit");
 			exit(status);
 		}
-		if (!(args = ft_strqotsplit(input, ' ')))
+		if (!(args = ft_strqotsplit(input)))
 			continue;
-		tilde_substitute(args, env);
+		substitutions(args, env);
 		call_handler(args, &env, &status);
 		ft_tabfree(args);
 	}

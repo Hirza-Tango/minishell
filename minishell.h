@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:04:50 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/23 17:05:37 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/31 16:31:07 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <libft.h>
+# include <get_next_line.h>
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -39,6 +40,6 @@ const char	*ft_getenv(const char *name, char **env);
 int			ft_setenv(const char *name, const char *value, char ***env);
 int			ft_unsetenv(const char *name, char ***env);
 char		*abs_to_rel(char *old, char **env, int reverse);
-void		tilde_substitute(char **tab, char **env);
+void		substitutions(char **tab, char **env);
 
 #endif
