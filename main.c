@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/31 17:49:50 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/01 12:24:03 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,27 +34,13 @@ static void	prompt(char **env)
 	ft_putstr(ft_getenv("USER", env));
 	ft_putstr("\e[31m");
 	ft_putstr("@");
-	ft_putstr("\e[32m");
+	ft_putstr("\e[33m");
 	ft_putstr(wd);
 	free((char *)wd);
 	ft_putstr("\e[31m");
 	ft_putstr("#");
 	ft_putstr("\e[0m");
 	ft_putstr(" ");
-}
-
-int			ft_puterr(const char *command, const char *target,
-	const char *reason, int code)
-{
-	ft_putstr_fd(command, 2);
-	ft_putstr_fd(": ", 2);
-	if (*target)
-	{
-		ft_putstr_fd(target, 2);
-		ft_putstr_fd(": ", 2);
-	}
-	ft_putendl_fd(reason, 2);
-	return (code);
 }
 
 void		call_handler(char *argv[], char ***env, int *status)
@@ -85,11 +71,35 @@ void		call_handler(char *argv[], char ***env, int *status)
 		*status = mini_launch(argv, *env);
 }
 
+int			input_handler(const char *input, int *status, char ***env)
+{
+	char		**bigargs;
+	char		**dup;
+	char		**args;
+
+	if (!(bigargs = ft_strsplit(input, ';')))
+		return (1);
+	dup = bigargs;
+	while (*dup)
+	{
+		if (!(args = ft_strqotsplit(*dup)))
+		{
+			dup++;
+			continue;
+		}
+		substitutions(args, *env);
+		call_handler(args, env, status);
+		ft_tabfree(args);
+		dup++;
+	}
+	ft_tabfree(bigargs);
+	return (0);
+}
+
 int			main(int argc, char *argv[], char *envv[])
 {
 	char		*input;
 	int			status;
-	char		**args;
 	char		**env;
 
 	(void)(argv && argc);
@@ -105,10 +115,6 @@ int			main(int argc, char *argv[], char *envv[])
 			ft_putendl("exit");
 			exit(status);
 		}
-		if (!(args = ft_strqotsplit(input)))
-			continue;
-		substitutions(args, env);
-		call_handler(args, &env, &status);
-		ft_tabfree(args);
+		input_handler(input, &status, &env);
 	}
 }
