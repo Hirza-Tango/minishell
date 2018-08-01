@@ -6,11 +6,19 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 14:54:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/31 17:53:30 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/01 11:15:34 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+/*
+**	TODO: Cases:
+**		System:
+**			EFAULT:	Path is outside process adress space
+**			EIO:	IO Error
+**			ELOOP:	Symlink loop
+*/
 
 static int	is_dir(const char *path)
 {
@@ -48,15 +56,8 @@ static int	cd(const char *path, char ***env)
 			return (ft_puterr(com, path, "Not a directory", 1));
 		return (ft_puterr(com, path, "System error", 1));
 	}
+	return (0);
 }
-
-/*
-**	TODO: Cases:
-**		System:
-**			EFAULT:	Path is outside process adress space
-**			EIO:	IO Error
-**			ELOOP:	Symlink loop
-*/
 
 int			mini_cd(char *argv[], char ***env)
 {
