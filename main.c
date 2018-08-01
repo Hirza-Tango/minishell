@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/01 18:04:57 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/01 18:33:40 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,6 @@ int			main(int argc, char *argv[], char *envv[])
 			exit(status);
 		}
 		input_handler(input, &status, &env);
+		free(input);
 	}
 }
