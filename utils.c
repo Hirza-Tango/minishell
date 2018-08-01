@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/23 15:51:34 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/31 17:35:00 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/01 12:05:32 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,18 @@ void	substitutions(char **tab, char **env)
 				ft_strdup(ft_getenv(*tab + 1, env)) : ft_strdup(""));
 		tab++;
 	}
+}
+
+int		ft_puterr(const char *command, const char *target,
+	const char *reason, int code)
+{
+	ft_putstr_fd(command, 2);
+	ft_putstr_fd(": ", 2);
+	if (*target)
+	{
+		ft_putstr_fd(target, 2);
+		ft_putstr_fd(": ", 2);
+	}
+	ft_putendl_fd(reason, 2);
+	return (code);
 }
