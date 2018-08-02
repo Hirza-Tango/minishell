@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 12:46:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/02 16:21:44 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/02 16:39:40 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ int			mini_launch(char *argv[], char *env[])
 	if (!exec)
 		return (ft_puterr(SHELL_NAME, argv[0], "command not found", 1));
 	else if (access(exec, X_OK))
+	{
+		free(exec);
 		return (ft_puterr(SHELL_NAME, argv[0], "permission denied", 1));
+	}
 	if ((pid = fork()))
 	{
 		wait4(pid, &status, 0, NULL);
