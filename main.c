@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/02 14:34:40 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/02 18:38:04 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,17 +108,18 @@ int			main(int argc, char *argv[], char *envv[])
 	char		**env;
 
 	(void)(argv && argc);
-	env = init_env(envv);
+	env = NULL;
+	ENV = init_env(envv);
 	status = 0;
 	while (1)
 	{
-		prompt(env);
+		prompt(ENV);
 		if (get_next_line(0, &input) <= 0)
 		{
 			ft_putendl("exit");
 			exit(status);
 		}
-		input_handler(input, &status, &env);
+		input_handler(input, &status, &ENV);
 		free(input);
 	}
 }

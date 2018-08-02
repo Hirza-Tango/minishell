@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:04:50 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/31 17:35:07 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/02 18:39:02 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@
 # include <signal.h>
 
 # define SHELL_NAME "minishell"
+# ifndef GLOBAL_ENV
+#  define ENV env
+# else
+
+char	**g_env;
+
+#  define ENV g_env
+# endif
 
 int			mini_echo(char *argv[]);
 int			mini_cd(char *argv[], char ***env);
