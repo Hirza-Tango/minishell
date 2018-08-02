@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 14:54:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/02 16:01:08 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/02 16:26:03 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int			mini_cd(char *argv[], char ***env)
 	ft_setenv("OLDPWD", pwd, env);
 	free(pwd);
 	pwd = getcwd(NULL, 0);
-	ft_setenv("PWD", getcwd(NULL, 0), env);
+	ft_setenv("PWD", pwd, env);
 	free(pwd);
 	return (0);
 }
