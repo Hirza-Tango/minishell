@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 12:46:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/02 15:54:45 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/02 16:21:44 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,9 @@ static char	*exec_location(char *path, char **env)
 		return (NULL);
 	while (*dup)
 	{
-		if (!(exec = ft_strmjoin(3, *dup, "/", path)))
-			break ;
+		exec = ft_strmjoin(3, *dup, "/", path);
 		if (!access(exec, F_OK))
-		{
-			free(exec);
 			break ;
-		}
 		free(exec);
 		exec = NULL;
 		dup++;
@@ -52,7 +48,7 @@ int			mini_launch(char *argv[], char *env[])
 	exec = exec_location(argv[0], env);
 	if (!exec)
 		return (ft_puterr(SHELL_NAME, argv[0], "command not found", 1));
-	if (access(exec, X_OK))
+	else if (access(exec, X_OK))
 		return (ft_puterr(SHELL_NAME, argv[0], "permission denied", 1));
 	if ((pid = fork()))
 	{
