@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/01 18:50:03 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/02 14:34:40 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int			input_handler(const char *input, int *status, char ***env)
 		}
 		substitutions(args, *env);
 		call_handler(args, env, status);
+		ft_tabfree(args);
 		free(args);
 		dup++;
 	}
