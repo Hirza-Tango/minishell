@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 14:54:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/01 11:15:34 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/02 16:01:08 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static int	cd(const char *path, char ***env)
 	{
 		if (chdir(ft_getenv("OLDPWD", *env)))
 			return (ft_puterr(com, "", "OLDPWD not set", 1));
+		ft_putendl(ft_getenv("OLDPWD", *env));
 	}
 	else if (chdir(path))
 	{
