@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:04:50 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/02 18:39:02 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/02 18:48:21 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ int			ft_unsetenv(const char *name, char ***env);
 char		*abs_to_rel(char *old, char **env, int reverse);
 void		substitutions(char **tab, char **env);
 int			default_path(char ***env);
+void		prompt(char **env);
 
 #endif

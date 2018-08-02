@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/02 18:38:04 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/02 18:50:46 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,19 @@ static char	**init_env(char **env)
 	return (ret);
 }
 
-static void	prompt(char **env)
+static void	signal_handle(int sig)
 {
-	char	*wd;
-
-	wd = getcwd(NULL, 0);
-	ft_swapnfree(&wd, abs_to_rel(wd, env, 0));
-	ft_putstr("\e[32m");
-	ft_putstr(ft_getenv("USER", env));
-	ft_putstr("\e[31m");
-	ft_putstr("@");
-	ft_putstr("\e[33m");
-	ft_putstr(wd);
-	free((char *)wd);
-	ft_putstr("\e[31m");
-	ft_putstr("#");
-	ft_putstr("\e[0m");
-	ft_putstr(" ");
+	char	**env;
+	
+	env = NULL;
+	if (sig == SIGINT)
+	{
+		ft_putchar('\n');
+		prompt(ENV);
+	}
 }
 
-void		call_handler(char *argv[], char ***env, int *status)
+static void	call_handler(char *argv[], char ***env, int *status)
 {
 	if (ft_strequ(argv[0], "echo"))
 		*status = mini_echo(argv);
@@ -111,6 +104,7 @@ int			main(int argc, char *argv[], char *envv[])
 	env = NULL;
 	ENV = init_env(envv);
 	status = 0;
+	signal(SIGINT, signal_handle);
 	while (1)
 	{
 		prompt(ENV);

@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/23 15:51:34 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/01 12:05:32 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/02 18:51:41 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ char	*abs_to_rel(char *old, char **env, int reverse)
 	const char	*find = reverse ? "~" : ft_getenv("HOME", env);
 	const char	*replace = (!reverse) ? "~" : ft_getenv("HOME", env);
 
+	if (!env)
+		return (ft_strdup(old));
 	if (!ft_strncmp(old, find, ft_strlen(find)))
 		return (ft_strjoin(replace, old + ft_strlen(find)));
 	return (ft_strdup(old));
@@ -71,4 +73,23 @@ int		ft_puterr(const char *command, const char *target,
 	}
 	ft_putendl_fd(reason, 2);
 	return (code);
+}
+
+void	prompt(char **env)
+{
+	char	*wd;
+
+	wd = getcwd(NULL, 0);
+	ft_swapnfree(&wd, abs_to_rel(wd, env, 0));
+	ft_putstr("\e[32m");
+	ft_putstr(ft_getenv("USER", env));
+	ft_putstr("\e[31m");
+	ft_putstr("@");
+	ft_putstr("\e[33m");
+	ft_putstr(wd);
+	free((char *)wd);
+	ft_putstr("\e[31m");
+	ft_putstr("#");
+	ft_putstr("\e[0m");
+	ft_putstr(" ");
 }
