@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/11 10:44:10 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/17 12:01:17 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/02 17:33:09 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ const char	*ft_getenv(const char *name, char **env)
 {
 	char			**dup;
 
-	if (!name || !*name || ft_strchr(name, '='))
+	if (!name || !*name || ft_strchr(name, '=') || !env)
 		return (NULL);
 	dup = env;
 	while (*dup)
