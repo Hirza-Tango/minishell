@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 17:20:51 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/31 18:03:45 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/02 17:45:52 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int			ft_unsetenv(const char *name, char ***env)
 	size_t	size;
 	char	**dup;
 
-	dup = *env;
+	if (!(dup = *env))
+		return (1);
 	size = 0;
 	while (*dup)
 	{

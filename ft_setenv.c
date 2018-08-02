@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 16:47:58 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/18 11:30:48 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/02 17:45:28 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ static int	env_add(const char *name, const char *value, char ***env)
 
 int			ft_setenv(const char *name, const char *value, char ***env)
 {
+	if (!*env)
+		return (1);
 	if (ft_getenv(name, *env))
 		return (env_replace(name, value, *env));
 	else
