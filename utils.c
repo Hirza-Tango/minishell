@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/23 15:51:34 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/02 18:51:41 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/03 16:56:17 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*abs_to_rel(char *old, char **env, int reverse)
 	const char	*find = reverse ? "~" : ft_getenv("HOME", env);
 	const char	*replace = (!reverse) ? "~" : ft_getenv("HOME", env);
 
-	if (!env)
+	if (!env || !ft_getenv("HOME", env))
 		return (ft_strdup(old));
 	if (!ft_strncmp(old, find, ft_strlen(find)))
 		return (ft_strjoin(replace, old + ft_strlen(find)));
