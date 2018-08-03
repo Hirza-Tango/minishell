@@ -11,7 +11,6 @@ endif
 CFILES=	ft_getenv.c		ft_setenv.c		ft_unsetenv.c	mini_cd.c		\
 		mini_echo.c		mini_env.c		mini_launch.c	mini_pwd.c		\
 		mini_setenv.c	mini_unsetenv.c	utils.c			main.c			\
-		signals.c
 
 OBJ=$(CFILES:%.c=build/%.o)
 

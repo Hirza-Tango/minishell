@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 12:46:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/03 11:24:32 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/02 16:39:40 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,13 @@ int			mini_launch(char *argv[], char *env[])
 	}
 	if ((pid = fork()))
 	{
-		signal(SIGINT, SIG_IGN);
 		wait4(pid, &status, 0, NULL);
 		free(exec);
-		signal(SIGINT, signal_handle);
 		return (status);
 	}
 	else
+	{
+		signal(SIGINT, SIG_DFL);
 		return (execve(exec, argv, env));
+	}
 }
