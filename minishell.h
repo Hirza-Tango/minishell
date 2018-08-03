@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:04:50 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/03 14:47:40 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/03 15:51:39 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ char	**g_env;
 
 #  define ENV g_env
 # endif
+
+# define CD_ERR SHELL_NAME ": cd"
 
 int			mini_echo(char *argv[]);
 int			mini_cd(char *argv[], char ***env);

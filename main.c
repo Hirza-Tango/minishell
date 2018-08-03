@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/03 14:21:27 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/03 15:47:40 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@ static char	**init_env(char **env)
 	ft_setenv("SHLVL", newlvl, &ret);
 	free(newlvl);
 	return (ret);
+}
+
+static void	set_underscore(char **argv, char ***env)
+{
+	while (*argv)
+		argv++;
+	argv--;
+	ft_setenv("_", *argv, env);
 }
 
 static void	call_handler(char *argv[], char ***env, int *status)
@@ -53,6 +61,7 @@ static void	call_handler(char *argv[], char ***env, int *status)
 	}
 	else
 		*status = mini_launch(argv, *env);
+	set_underscore(argv, env);
 }
 
 int			input_handler(const char *input, int *status, char ***env)

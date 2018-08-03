@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 14:54:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/03 14:54:16 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/03 15:43:32 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,27 +32,28 @@ static int	is_dir(const char *path)
 
 static int	cd(const char *path, char ***env)
 {
-	const char	*com = SHELL_NAME ": cd";
-
-	if (!path && chdir(ft_getenv("HOME", *env)))
-		return (ft_puterr(com, "", "HOME not set", 1));
+	if (!path)
+	{
+		if (chdir(ft_getenv("HOME", *env)))
+			return (ft_puterr(CD_ERR, "", "HOME not set", 1));
+	}
 	else if (ft_strlen(path) > MAXNAMLEN)
-		return (ft_puterr(com, path, "File name too long", 1));
+		return (ft_puterr(CD_ERR, path, "File name too long", 1));
 	else if (ft_strequ(path, "-"))
 	{
 		if (chdir(ft_getenv("OLDPWD", *env)))
-			return (ft_puterr(com, "", "OLDPWD not set", 1));
+			return (ft_puterr(CD_ERR, "", "OLDPWD not set", 1));
 		ft_putendl(ft_getenv("OLDPWD", *env));
 	}
 	else if (chdir(path))
 	{
 		if (access(path, F_OK))
-			return (ft_puterr(com, path, "No such file or directory", 1));
+			return (ft_puterr(CD_ERR, path, "No such file or directory", 1));
 		if (access(path, R_OK))
-			return (ft_puterr(com, path, "Permission denied", 1));
+			return (ft_puterr(CD_ERR, path, "Permission denied", 1));
 		if (!is_dir(path))
-			return (ft_puterr(com, path, "Not a directory", 1));
-		return (ft_puterr(com, path, "System error", 1));
+			return (ft_puterr(CD_ERR, path, "Not a directory", 1));
+		return (ft_puterr(CD_ERR, path, "System error", 1));
 	}
 	return (0);
 }
