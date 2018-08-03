@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/23 15:51:34 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/03 16:56:17 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/03 17:04:57 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ void	prompt(char **env)
 {
 	char	*wd;
 
+	if (!env)
+	{
+		ft_putstr("\e[31m$>\e[0m");
+		return ;
+	}
 	wd = getcwd(NULL, 0);
 	ft_swapnfree(&wd, abs_to_rel(wd, env, 0));
 	ft_putstr("\e[32m");
