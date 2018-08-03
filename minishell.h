@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:04:50 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/03 14:21:40 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/03 14:47:40 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ void		substitutions(char **tab, char **env);
 int			default_path(char ***env);
 void		prompt(char **env);
 void		signal_handle(int sig);
+void		ignore_child_signal(int sig);
 
 #endif

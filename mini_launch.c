@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/13 12:46:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/02 16:39:40 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/03 14:52:31 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static char	*exec_location(char *path, char **env)
 int			mini_launch(char *argv[], char *env[])
 {
 	char	*exec;
-	pid_t	pid;
 	int		status;
 
 	status = 0;
@@ -53,10 +52,12 @@ int			mini_launch(char *argv[], char *env[])
 		free(exec);
 		return (ft_puterr(SHELL_NAME, argv[0], "permission denied", 1));
 	}
-	if ((pid = fork()))
+	signal(SIGINT, ignore_child_signal);
+	if (fork())
 	{
-		wait4(pid, &status, 0, NULL);
+		wait4(-1, &status, 0, NULL);
 		free(exec);
+		signal(SIGINT, signal_handle);
 		return (status);
 	}
 	else

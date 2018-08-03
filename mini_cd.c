@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 14:54:46 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/02 16:26:03 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/03 14:54:16 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,8 @@ static int	cd(const char *path, char ***env)
 {
 	const char	*com = SHELL_NAME ": cd";
 
-	if (!path)
-	{
-		if (chdir(ft_getenv("HOME", *env)))
-			return (ft_puterr(com, "", "HOME not set", 1));
-	}
+	if (!path && chdir(ft_getenv("HOME", *env)))
+		return (ft_puterr(com, "", "HOME not set", 1));
 	else if (ft_strlen(path) > MAXNAMLEN)
 		return (ft_puterr(com, path, "File name too long", 1));
 	else if (ft_strequ(path, "-"))
