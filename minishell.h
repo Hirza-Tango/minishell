@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:04:50 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/02 18:48:21 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/03 14:21:40 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ char		*abs_to_rel(char *old, char **env, int reverse);
 void		substitutions(char **tab, char **env);
 int			default_path(char ***env);
 void		prompt(char **env);
+void		signal_handle(int sig);
 
 #endif
