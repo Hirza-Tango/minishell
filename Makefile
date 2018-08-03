@@ -33,7 +33,7 @@ clean fclean re::
 clean::
 	@rm -rf build/
 
-fclean::
+fclean:: clean
 	@rm -rf $(NAME)
 
 re:: fclean all
