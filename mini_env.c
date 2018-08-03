@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 16:29:30 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/02 15:32:29 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/03 16:40:53 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int			mini_env(char *argv[], char ***env)
 
 	argv++;
 	dup = ft_tabdup(*env);
-	dupiter = dup;
 	while (*argv && (pos = ft_strchr(*argv, '=')))
 	{
 		set_env(*argv, pos, &dup);
@@ -41,6 +40,7 @@ int			mini_env(char *argv[], char ***env)
 	}
 	if (!*argv || !**argv)
 	{
+		dupiter = dup;
 		while (*dupiter)
 			ft_putendl(*dupiter++);
 		status = 0;
