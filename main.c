@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/02 18:50:46 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/03 11:25:53 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,6 @@ static char	**init_env(char **env)
 	ft_setenv("SHLVL", newlvl, &ret);
 	free(newlvl);
 	return (ret);
-}
-
-static void	signal_handle(int sig)
-{
-	char	**env;
-	
-	env = NULL;
-	if (sig == SIGINT)
-	{
-		ft_putchar('\n');
-		prompt(ENV);
-	}
 }
 
 static void	call_handler(char *argv[], char ***env, int *status)
