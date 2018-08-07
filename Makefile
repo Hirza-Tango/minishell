@@ -1,5 +1,5 @@
 NAME=minishell
-DEPS=libft/libft.a get_next_line/get_next_line.o
+DEPS=get_next_line/get_next_line.o libft/libft.a
 LIBFT_DIR=libft
 INCLUDES=$(LIBFT_DIR)/includes
 REL_DEPS=$(DEPS:%=$(LIBFT_DIR)/%)
@@ -15,7 +15,7 @@ CFILES=	ft_getenv.c		ft_setenv.c		ft_unsetenv.c	mini_cd.c		\
 
 OBJ=$(CFILES:%.c=build/%.o)
 
-$(NAME): $(REL_DEPS) $(OBJ)
+$(NAME): $(OBJ) $(REL_DEPS)
 	@gcc $(CFLAGS) -o $(NAME) $^
 
 $(REL_DEPS):
