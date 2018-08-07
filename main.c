@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/09 17:16:43 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/08/03 15:47:40 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/08/07 21:32:31 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int			main(int argc, char *argv[], char *envv[])
 	char		**env;
 
 	(void)(argv && argc);
-	env = NULL;
+	(void)env;
 	ENV = init_env(envv);
 	status = 0;
 	signal(SIGINT, signal_handle);
